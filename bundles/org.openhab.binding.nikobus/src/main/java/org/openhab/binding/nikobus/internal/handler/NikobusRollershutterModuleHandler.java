@@ -71,8 +71,8 @@ public class NikobusRollershutterModuleHandler extends NikobusModuleHandler {
                 positionEstimators.add(new PositionEstimator(channel.getUID(), config));
             }
 
-            DirectionConfiguration configuration = config.reverse ? new DirectionConfiguration(1, 2)
-                    : new DirectionConfiguration(2, 1);
+            DirectionConfiguration configuration = config.reverse ? DirectionConfiguration.reversed
+                    : DirectionConfiguration.normal;
             directionConfigurations.put(channel.getUID().getId(), configuration);
         }
 
@@ -230,7 +230,10 @@ public class NikobusRollershutterModuleHandler extends NikobusModuleHandler {
         final int up;
         final int down;
 
-        DirectionConfiguration(int up, int down) {
+        final static DirectionConfiguration normal = new DirectionConfiguration(1, 2);
+        final static DirectionConfiguration reversed = new DirectionConfiguration(2, 1);
+
+        private DirectionConfiguration(int up, int down) {
             this.up = up;
             this.down = down;
         }
